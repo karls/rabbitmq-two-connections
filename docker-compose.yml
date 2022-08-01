@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  rabbitmq_upstream:
+    image: rabbitmq:3.9.16-management
+    ports:
+      - "7001:15672"
+
+  rabbitmq_downstream:
+    image: rabbitmq:3.9.16-management
+    ports:
+      - "9001:15672"
+
+  consumer:
+    build:
+      context: .
+    command: "app.app"
+    volumes:
+      - .:/app
+    depends_on:
+      - rabbitmq_upstream
+      - rabbitmq_downstream

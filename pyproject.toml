@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "rabbitmq-two-connections"
+version = "0.1.0"
+description = ""
+authors = ["Karl Sutt <karl@sutt.ee>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pika = "^1.3.0"
+
+[tool.poetry.dev-dependencies]
+black = "^22.6.0"
+isort = "^5.10.1"
+flake8 = "^5.0.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
