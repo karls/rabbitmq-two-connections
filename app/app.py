@@ -44,7 +44,7 @@ class Publisher(threading.Thread):
         *args,
         **kwargs,
     ):
-        threading.Thread.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.daemon = True
         self.is_running = True
         self.name = "Publisher"
