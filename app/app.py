@@ -55,6 +55,11 @@ class Publisher(threading.Thread):
         self.channel.confirm_delivery()
 
     def run(self):
+        # Uncomment `pass` and comment the `while` to simulate
+        # the not handling heartbeats properly
+
+        # pass
+
         while self.is_running:
             self.connection.process_data_events(time_limit=1)
 
@@ -134,6 +139,8 @@ if __name__ == "__main__":
         virtual_host="/",
         credentials=creds,
     )
+    # The heartbeat value is set to a purposefully low number to demonstrate
+    # that heartbeats are correctly handled
     downstream_rmq = ConnectionParameters(
         host="rabbitmq_downstream",
         virtual_host="/",
