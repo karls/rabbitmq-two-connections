@@ -56,7 +56,15 @@ class Publisher(threading.Thread):
 
     def run(self):
         # Uncomment `pass` and comment the `while` to simulate
-        # the not handling heartbeats properly
+        # the not handling heartbeats properly.
+        # Note that if we're NOT calling `.process_data_events`,
+        # calling `Publisher.publish` won't work either, because
+        # it schedules the actual publishing as a callback (self._publish).
+        # That callback never gets run.
+        #
+        # The likely reason why publishing works at all without
+        # `.process_data_events` is that in most examples in the wild
+        # people just call `channel.basic_publish` directly.
 
         # pass
 
