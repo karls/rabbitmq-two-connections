@@ -15,7 +15,9 @@ logging.config.dictConfig(
     {
         "version": 1,
         "formatters": {
-            "simple": {"format": "[%(levelname)s] [thread:%(threadName)s] %(msg)s"},
+            "simple": {
+                "format": "%(asctime)s [%(levelname)s] [thread:%(threadName)s] %(msg)s"
+            },
         },
         "handlers": {
             "console": {
@@ -82,7 +84,8 @@ class Publisher(threading.Thread):
     def stop(self):
         logger.info("Stopping...")
         self.is_running = False
-        self.connection.sleep(2)
+        # Wait until all the data events have been processed
+        self.connection.process_data_events(time_limit=1)
         if self.connection.is_open:
             self.connection.close()
             logger.info("Connection closed")
@@ -169,3 +172,4 @@ if __name__ == "__main__":
         consumer.start()
     except KeyboardInterrupt:
         consumer.stop()
+        publisher.join()
